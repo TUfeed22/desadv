@@ -6,17 +6,9 @@ use DateMalformedStringException;
 use DateTimeImmutable;
 use RuntimeException;
 use SimpleXMLElement;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class XmlParserService
 {
-    public function __construct(
-        private readonly SerializerInterface $serializer,
-    )
-    {
-
-    }
-
     /**
      * @throws DateMalformedStringException
      */
@@ -58,7 +50,7 @@ class XmlParserService
             date: new DateTimeImmutable((string)$xml->DATE),
             recipient: (int)$xml->HEAD->RECIPIENT,
             sender: (int)$xml->HEAD->SENDER,
-            body: json_decode(json_encode($xml->HEAD->PACKINGSEQUENCE, JSON_UNESCAPED_UNICODE), true)
+            body: json_decode(json_decode($xml->HEAD->PACKINGSEQUENCE, JSON_UNESCAPED_UNICODE), true)
         );
     }
 

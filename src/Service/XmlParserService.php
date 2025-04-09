@@ -50,7 +50,7 @@ class XmlParserService
             date: new DateTimeImmutable((string)$xml->DATE),
             recipient: (int)$xml->HEAD->RECIPIENT,
             sender: (int)$xml->HEAD->SENDER,
-            body: json_decode(json_decode($xml->HEAD->PACKINGSEQUENCE, JSON_UNESCAPED_UNICODE), true)
+            body: json_decode(json_encode($xml->HEAD->PACKINGSEQUENCE, JSON_UNESCAPED_UNICODE), true)
         );
     }
 
